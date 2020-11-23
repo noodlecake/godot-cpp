@@ -71,11 +71,11 @@ typedef float real_t;
 #define _PLANE_EQ_D_EPSILON 0.0001
 
 #ifdef __GNUC__
-#define likely(x) __builtin_expect(!!(x), 1)
-#define unlikely(x) __builtin_expect(!!(x), 0)
+#define GD_LIKELY(x) __builtin_expect(!!(x), 1)
+#define GD_UNLIKELY(x) __builtin_expect(!!(x), 0)
 #else
-#define likely(x) x
-#define unlikely(x) x
+#define GD_LIKELY(x) x
+#define GD_UNLIKELY(x) x
 #endif
 
 // Don't use this directly; instead, use any of the CRASH_* macros
@@ -125,7 +125,7 @@ typedef float real_t;
 #ifndef ERR_FAIL_INDEX
 #define ERR_FAIL_INDEX(index, size)                       \
 	do {                                                  \
-		if (unlikely((index) < 0 || (index) >= (size))) { \
+		if (GD_UNLIKELY((index) < 0 || (index) >= (size))) { \
 			ERR_PRINT(ERR_MSG_INDEX(index, size));        \
 			return;                                       \
 		}                                                 \
@@ -135,7 +135,7 @@ typedef float real_t;
 #ifndef ERR_FAIL_INDEX_V
 #define ERR_FAIL_INDEX_V(index, size, ret)                \
 	do {                                                  \
-		if (unlikely((index) < 0 || (index) >= (size))) { \
+		if (GD_UNLIKELY((index) < 0 || (index) >= (size))) { \
 			ERR_PRINT(ERR_MSG_INDEX(index, size));        \
 			return ret;                                   \
 		}                                                 \
@@ -145,7 +145,7 @@ typedef float real_t;
 #ifndef ERR_FAIL_UNSIGNED_INDEX_V
 #define ERR_FAIL_UNSIGNED_INDEX_V(index, size, ret) \
 	do {                                            \
-		if (unlikely((index) >= (size))) {          \
+		if (GD_UNLIKELY((index) >= (size))) {          \
 			ERR_PRINT(ERR_MSG_INDEX(index, size));  \
 			return ret;                             \
 		}                                           \
@@ -155,7 +155,7 @@ typedef float real_t;
 #ifndef CRASH_BAD_INDEX
 #define CRASH_BAD_INDEX(index, size)                      \
 	do {                                                  \
-		if (unlikely((index) < 0 || (index) >= (size))) { \
+		if (GD_UNLIKELY((index) < 0 || (index) >= (size))) { \
 			FATAL_PRINT(ERR_MSG_INDEX(index, size));      \
 			GENERATE_TRAP;                                \
 		}                                                 \
@@ -165,7 +165,7 @@ typedef float real_t;
 #ifndef ERR_FAIL_NULL
 #define ERR_FAIL_NULL(param)                \
 	do {                                    \
-		if (unlikely(!param)) {             \
+		if (GD_UNLIKELY(!param)) {             \
 			ERR_PRINT(ERR_MSG_NULL(param)); \
 			return;                         \
 		}                                   \
@@ -175,7 +175,7 @@ typedef float real_t;
 #ifndef ERR_FAIL_NULL_V
 #define ERR_FAIL_NULL_V(param, ret)         \
 	do {                                    \
-		if (unlikely(!param)) {             \
+		if (GD_UNLIKELY(!param)) {             \
 			ERR_PRINT(ERR_MSG_NULL(param)); \
 			return ret;                     \
 		}                                   \
@@ -185,7 +185,7 @@ typedef float real_t;
 #ifndef ERR_FAIL_COND
 #define ERR_FAIL_COND(cond)                \
 	do {                                   \
-		if (unlikely(cond)) {              \
+		if (GD_UNLIKELY(cond)) {              \
 			ERR_PRINT(ERR_MSG_COND(cond)); \
 			return;                        \
 		}                                  \
@@ -195,7 +195,7 @@ typedef float real_t;
 #ifndef CRASH_COND
 #define CRASH_COND(cond)                     \
 	do {                                     \
-		if (unlikely(cond)) {                \
+		if (GD_UNLIKELY(cond)) {                \
 			FATAL_PRINT(ERR_MSG_COND(cond)); \
 			return;                          \
 		}                                    \
@@ -205,7 +205,7 @@ typedef float real_t;
 #ifndef ERR_FAIL_COND_V
 #define ERR_FAIL_COND_V(cond, ret)         \
 	do {                                   \
-		if (unlikely(cond)) {              \
+		if (GD_UNLIKELY(cond)) {              \
 			ERR_PRINT(ERR_MSG_COND(cond)); \
 			return ret;                    \
 		}                                  \
@@ -215,7 +215,7 @@ typedef float real_t;
 #ifndef ERR_CONTINUE
 #define ERR_CONTINUE(cond)                 \
 	{                                      \
-		if (unlikely(cond)) {              \
+		if (GD_UNLIKELY(cond)) {              \
 			ERR_PRINT(ERR_MSG_COND(cond)); \
 			continue;                      \
 		}                                  \
@@ -225,7 +225,7 @@ typedef float real_t;
 #ifndef ERR_BREAK
 #define ERR_BREAK(cond)                    \
 	{                                      \
-		if (unlikely(cond)) {              \
+		if (GD_UNLIKELY(cond)) {              \
 			ERR_PRINT(ERR_MSG_COND(cond)); \
 			break;                         \
 		}                                  \
